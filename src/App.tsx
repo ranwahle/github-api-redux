@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import logo from './logo.svg';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
-import { applyMiddleware, legacy_createStore as createStore } from 'redux';
+import { legacy_createStore as createStore } from 'redux';
 import { rootReucer } from './store/root-reducer';
-import { searchUsersMiddleware } from './store/middlewares';
 import {composeWithDevTools} from 'redux-devtools-extension'
 
 const store = createStore(rootReucer, composeWithDevTools(
-  applyMiddleware(searchUsersMiddleware)))
+  ))
 
 function App() {
   const query = useRef<HTMLInputElement>(null)
