@@ -3,10 +3,13 @@ import './App.css';
 import { legacy_createStore as createStore } from 'redux';
 import { rootReucer } from './store/root-reducer';
 import {composeWithDevTools} from 'redux-devtools-extension'
+import { setStore } from './store/github-users-reducer';
 
 const store = createStore(rootReucer, composeWithDevTools(
   ))
 
+  setStore(store);
+  
 function App() {
   const query = useRef<HTMLInputElement>(null)
   const getUsers = async () => {
