@@ -24,6 +24,7 @@ function App() {
     <div className="App">
       <input type="text" ref={query} placeholder="search user"></input>
       <button onClick={getUsers}>Get Users</button>
+      <div className="users-container">
       {users.map(user => 
       <div>
         <div>
@@ -34,6 +35,7 @@ function App() {
       
         </div>
       )}
+      </div>
     </div>
   );
 }
