@@ -9,7 +9,9 @@ export function SingleUser(props: {user: User | null}) {
     return ( <div>
         <div>
           <img src={user!.avatar_url} alt="avatar"></img>
-        </div>
+        </div>       
+         <div>Name: {user!.name}</div>
+
         <div>Bio: {user!.bio}</div>
         <div>Public repos {user!.public_repos}</div>
         <button onClick={resetCurrentUser}>Reset</button>

@@ -22,33 +22,15 @@ const initialState: UserState = {
     loading: false,
 }
 
-interface UserAction extends Action {
-    type: string; // 'UPDATE_USERS' | 'SEARCH_USERS' | 'SET_CURRENT_USER';
-    payload: User[] | User | null | string;
 
-}
 
-// export function userReducer(state: UserState = initialState, action: UserAction): UserState {
-//     switch (action.type) {
+export const updateUsersAction = createAction<User[]>('UPDATE_USERS');
+export const setCurrentUserAction = createAction<User | null>('SET_CURRENT_USER');
+export const updateCurrentUserDataAction = createAction<User>('UPDATE_CURRENT_USER_DATA');
 
-//         case 'UPDATE_USERS': {
-//             return { ...state, users: action.payload as User[], loading: false, currentUser: null };
-//         }
-//         case 'SET_CURRENT_USER': {
-//             return { ...state, currentUser: action.payload as User }
-//         }
-//         case 'UPDATE_CURRENT_USER_DATA': {
-//             return { ...state, currentUser: action.payload as User }
-//         }
-//     }
-//     return state;
-// }
-const updateUsers = createAction<User[]>('UPDATE_USERS');
-const setCurrentUser = createAction<User | null>('SET_CURRENT_USER');
-const updateCurrentUserData = createAction<User>('UPDATE_CURRENT_USER_DATA');
 export const userReducer = createReducer(initialState, builder => {
-    builder.addCase(updateUsers, (state, action) => ({ ...state, users: action.payload as User[], loading: false }));
-    builder.addCase(setCurrentUser, (state, action) => ({ ...state, currentUser: action.payload as User }));
-    builder.addCase(updateCurrentUserData, (state, action) => ({ ...state, currentUser: action.payload as User }));
+    builder.addCase(updateUsersAction, (state, action) => ({...state, users: action.payload as User[], loading: false, currentUser: null }));
+    builder.addCase(setCurrentUserAction, (state, action) => ({ ...state, currentUser: action.payload as User }));
+    builder.addCase(updateCurrentUserDataAction, (state, action) => ({ ...state, currentUser: action.payload as User }));
     builder.addDefaultCase((state) => state);
 }) 

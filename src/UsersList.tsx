@@ -21,7 +21,7 @@ const  setGlobalCurrentUser = (user: User) => {
 
   return (
     <>
-      {users.map((user: User) => (
+      {(users || []).map((user: User) => (
         <div>
           <div>
             <img src={user.avatar_url} alt="avatar"></img>

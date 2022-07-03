@@ -1,4 +1,3 @@
-import { createListenerMiddleware, createAction } from '@reduxjs/toolkit';
 import { CombinedState, Middleware } from "redux";
 import { queryUsers } from "../services/query-users";
 import { RootState } from "./github-users-reducer";
