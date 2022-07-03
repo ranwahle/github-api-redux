@@ -1,8 +1,6 @@
 import { User } from "../model/user";
+import { searchUser } from "../services/users-query";
 
-export interface RootState {
-    userState: UserState;
-}
 
 export interface UserState {
     users: User[],
@@ -17,6 +15,11 @@ const initialState: UserState = {
 
 export function userReducer(state: UserState = initialState, action: any): UserState {
     switch (action.type) {
+        case 'SEARCH_USERS': {
+            return state;
+             // TODO: Search user
+             // Dispatch an action for UPDATE_USERS with the response 
+        }
         case 'UPDATE_USERS': {
             return {...state, users: action.payload, loading: false};
         }
