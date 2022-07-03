@@ -1,11 +1,12 @@
 import { CombinedState, Middleware } from "redux";
 import { queryUsers } from "../services/query-users";
+import { updateUsersAction } from './github-users-reducer';
 
 export const searchUsersMiddleware: Middleware<{ usersState: {} },
     CombinedState<{ usersState: {} }>> = store => next => action => {
         if (action.type === 'SEARCH_USERS') {
             queryUsers(action.payload).then(data => {
-                store.dispatch({ type: 'UPDATE_USERS', payload: data });
+                store.dispatch(updateUsersAction(data));
             });
         }
         return next(action);

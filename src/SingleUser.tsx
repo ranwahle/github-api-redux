@@ -1,10 +1,11 @@
 import { User } from "./model/user";
 import { store } from "./store/create-store";
+import { setCurrentUserAction } from "./store/github-users-reducer";
 
 export function SingleUser(props: {user: User | null}) {
     const {user} = props;
     const resetCurrentUser = () => {
-        store.dispatch({type: 'SET_CURRENT_USER', payload: null});
+        store.dispatch(setCurrentUserAction(null));
     }
     return ( <div>
         <div>
