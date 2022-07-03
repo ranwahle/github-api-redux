@@ -3,6 +3,8 @@ import './App.css';
 import { UsersList } from './UsersList';
 import { store } from './store/create-store';
 import { strictEqual } from 'assert';
+import { User } from './model/user';
+import { SingleUser } from './SingleUser';
 
  
 function App() {
@@ -13,16 +15,20 @@ function App() {
   }
 
 
-
-  const [users, setUsers] = useState(store.getState().users.users)
+  const [currentUser, setCurrentUser] = useState(null as User | null);
+  const [users, setUsers] = useState([] as User[])
   useEffect(() => {
-    store.subscribe(() => setUsers(store.getState().users.users))
+    setUsers(store.getState().usersState.users);
+    return store.subscribe(() => {
+      setUsers(store.getState().usersState.users);
+      setCurrentUser(store.getState().usersState.currentUser);
+    });
   })
   return (
     <div className="App">
       <input type="text" ref={query} placeholder="search user"></input>
       <button onClick={getUsers}>Get Users</button>
-      <UsersList />
+      {currentUser && <SingleUser user={currentUser} /> ||  <UsersList /> }
     </div>
   );
 }
