@@ -1,5 +1,6 @@
+import { useRef } from 'react';
+import { Action } from "redux";
 import { User } from "../model/user";
-import { queryUsers } from "../services/query-users";
 
 
 
@@ -9,31 +10,31 @@ export interface RootState {
 
 export interface UserState {
     users: User[],
+    currentUser: User | null,
     loading: false,
 }
 
 const initialState: UserState = {
     users: [],
+    currentUser: null,
     loading: false,
 }
 
-let appStore: any;
+interface UserAction extends Action {
+    type: 'UPDATE_USERS' | 'SEARCH_USERS' | 'SET_CURRENT_USER';
+    payload: User[] | User | null | string;
 
-export function setStore(store: any) {
-    appStore = store;
 }
 
-export function userReducer(state: UserState = initialState, action: any): UserState {
+export function userReducer(state: UserState = initialState, action: UserAction): UserState {
     switch (action.type) {
-        case 'SEARCH_USERS': {
-            queryUsers(action.payload).then(data => {
-                appStore.dispatch( { type: 'UPDATE_USERS', payload: data } );
-            });
-            return state;
-        }
+
         case 'UPDATE_USERS': {
-            return {...state, users: action.payload, loading: false};
+            return { ...state, users: action.payload as User[], loading: false, currentUser: null };
+        }
+        case 'SET_CURRENT_USER': {
+            return { ...state, currentUser: action.payload as User }
         }
     }
-  return state;
+    return state;
 }

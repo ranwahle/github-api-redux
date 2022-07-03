@@ -1,21 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import './App.css';
-import { legacy_createStore as createStore } from 'redux';
-import { rootReucer } from './store/root-reducer';
-import {composeWithDevTools} from 'redux-devtools-extension'
-import { setStore } from './store/github-users-reducer';
+import { UsersList } from './UsersList';
+import { store } from './store/create-store';
+import { strictEqual } from 'assert';
 
-const store = createStore(rootReucer, composeWithDevTools(
-  ))
-
-  setStore(store);
-  
+ 
 function App() {
   const query = useRef<HTMLInputElement>(null)
   const getUsers = async () => {
 
     store.dispatch({type: 'SEARCH_USERS', payload: query.current!.value});
   }
+
+
 
   const [users, setUsers] = useState(store.getState().users.users)
   useEffect(() => {
@@ -25,16 +22,7 @@ function App() {
     <div className="App">
       <input type="text" ref={query} placeholder="search user"></input>
       <button onClick={getUsers}>Get Users</button>
-      {users.map(user => 
-      <div>
-        <div>
-          <img src={user.avatar_url} alt="avatar"></img>
-          </div>
-
-        <button className="link"> {user.login}</button>
-      
-        </div>
-      )}
+      <UsersList />
     </div>
   );
 }
